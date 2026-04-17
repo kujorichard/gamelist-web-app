@@ -1,150 +1,125 @@
-import type { CSSProperties } from 'react'
-import type { GameSummary } from '../types/game'
-import { formatCode, formatPlatform, type PlatformFilter } from '../utility/homeUtils'
+import type { GameDetails } from '../types/game'
+import { formatPlatform, getReleaseYear } from '../utility/homeUtils'
 
-type FeaturedCardProps = {
-	featuredGame: GameSummary | undefined
-	platformFilter: PlatformFilter
-	onPlatformFilterChange: (platform: PlatformFilter) => void
-	popularityPercent: number | null
-	recencyPercent: number | null
+type MainCardProps = {
+	game: GameDetails | null
+	allGamesReleaseYearsSource: { release_date: string }[]
+	popularityRank: Map<number, number>
+	popularityCount: number
+	isLoading: boolean
+	isError: boolean
 }
 
-function FeaturedCard({
-	featuredGame,
-	platformFilter,
-	onPlatformFilterChange,
-	popularityPercent,
-	recencyPercent,
-}: FeaturedCardProps) {
+function MainCard({
+	game,
+	allGamesReleaseYearsSource,
+	popularityRank,
+	popularityCount,
+	isLoading,
+	isError,
+}: MainCardProps) {
+	const releaseYear = game ? getReleaseYear(game.release_date) : null
+	const releaseYears = allGamesReleaseYearsSource
+		.map((sourceGame) => getReleaseYear(sourceGame.release_date))
+		.filter((year): year is number => year !== null)
+	const yearRange =
+		releaseYears.length > 0
+			? { min: Math.min(...releaseYears), max: Math.max(...releaseYears) }
+			: null
+	const popularityRankValue = game ? (popularityRank.get(game.id) ?? null) : null
+	const popularityPercent =
+		popularityRankValue !== null && popularityCount > 1
+			? Math.round((1 - popularityRankValue / (popularityCount - 1)) * 100)
+			: null
+	const recencyPercent =
+		yearRange && releaseYear !== null && yearRange.max !== yearRange.min
+			? Math.round(((releaseYear - yearRange.min) / (yearRange.max - yearRange.min)) * 100)
+			: null
+
+	const requirement = game?.minimum_system_requirements
+
 	return (
-		<div className="spotlight-panel">
-			<div className="spotlight-header">
-				<div>
-					<div className="panel-eyebrow">Featured Game</div>
-					<div className="panel-title">Spotlight Preview</div>
+		<section className="board">
+			<div className="spotlight-panel selected-preview-panel">
+				<div className="spotlight-header">
+					<div>
+						<div className="panel-eyebrow">Selected Game</div>
+						<div className="panel-title">Selected Game Preview</div>
+					</div>
 				</div>
-				<div className="spotlight-tabs" role="tablist">
-					<button
-						className={`spotlight-tab ${platformFilter === 'all' ? 'active' : ''}`}
-						type="button"
-						role="tab"
-						onClick={() => onPlatformFilterChange('all')}
-					>
-						All
-					</button>
-					<button
-						className={`spotlight-tab ${platformFilter === 'pc' ? 'active' : ''}`}
-						type="button"
-						role="tab"
-						onClick={() => onPlatformFilterChange('pc')}
-					>
-						PC
-					</button>
-					<button
-						className={`spotlight-tab ${platformFilter === 'browser' ? 'active' : ''}`}
-						type="button"
-						role="tab"
-						onClick={() => onPlatformFilterChange('browser')}
-					>
-						Browser
-					</button>
+
+				{isError && <div className="error-banner">Signal lost. Unable to load game details.</div>}
+
+				<div className="selected-preview-frame">
+					{game?.thumbnail ? (
+						<img src={game.thumbnail} alt={game.title} className="selected-preview-image" />
+					) : (
+						<div className="thumb-placeholder" aria-hidden="true"></div>
+					)}
+					<div className="selected-preview-overlay" aria-hidden="true"></div>
+					<div className="selected-preview-content">
+						<h2>{game ? game.title : isLoading ? 'Loading game...' : 'Game not found'}</h2>
+						<h3>
+							{game
+								? game.short_description
+								: 'No selected game information is available for this request.'}
+						</h3>
+					</div>
 				</div>
 			</div>
-			<div
-				className={`spotlight-canvas ${featuredGame?.thumbnail ? 'cover' : ''}`}
-				style={
-					featuredGame?.thumbnail
-						? ({ ['--cover' as string]: `url(${featuredGame.thumbnail})` } as CSSProperties)
-						: undefined
-				}
-			>
-				<div className="spotlight-grid" aria-hidden="true"></div>
-				<div className="spotlight-lines" aria-hidden="true"></div>
-				<article className="spotlight-card">
-					<div className="spotlight-card-header">
-						<span className={`status-chip ${featuredGame ? 'featured' : 'standby'}`}>
-							{featuredGame ? 'featured' : 'standby'}
-						</span>
-						<span className="unit-code">
-							{featuredGame ? formatCode(featuredGame.id) : 'GX-0000'}
-						</span>
-						<button className="icon-button" type="button" aria-label="Open game details">
-							<svg viewBox="0 0 24 24" role="presentation">
-								<path
-									d="M7 17h10V7m0 0H9m8 0-9 9"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth="1.4"
-								/>
-							</svg>
-						</button>
+
+			<aside className="intel-panel game-overview-panel">
+				<div className="intel-header">
+					<div>
+						<div className="panel-eyebrow">Telemetry</div>
+						<div className="panel-title">Game Overview</div>
 					</div>
-					<div className="spotlight-card-title">
-						{featuredGame ? featuredGame.title : 'No featured title'}
+				</div>
+
+				<div className="intel-metrics">
+					<div className="intel-metric">
+						<span>Genre</span>
+						<strong>{game?.genre ?? 'N/A'}</strong>
 					</div>
-					<p className="spotlight-card-desc">
-						{featuredGame
-							? featuredGame.short_description
-							: 'No featured title is available from the current feed.'}
-					</p>
-					<div className="spotlight-card-meta">
-						<div>
-							<span className="meta-label">Genre</span>
-							<span className="meta-value">
-								{featuredGame ? featuredGame.genre : 'N/A'}
-							</span>
-						</div>
-						<div>
-							<span className="meta-label">Platform</span>
-							<span className="meta-value">
-								{featuredGame ? formatPlatform(featuredGame.platform) : 'N/A'}
-							</span>
-						</div>
-						<div>
-							<span className="meta-label">Release</span>
-							<span className="meta-value">
-								{featuredGame ? featuredGame.release_date : 'N/A'}
-							</span>
-						</div>
+					<div className="intel-metric">
+						<span>Platform</span>
+						<strong>{game ? formatPlatform(game.platform) : 'N/A'}</strong>
 					</div>
-					<div className="spotlight-card-meters">
-						<div className="meter-row">
-							<span>Popularity</span>
-							<div className="meter">
-								<div
-									className="meter-fill"
-									style={{ width: `${popularityPercent ?? 0}%` }}
-								></div>
-							</div>
-							<span className="meter-value">
-								{popularityPercent !== null ? `${popularityPercent}%` : 'N/A'}
-							</span>
-						</div>
-						<div className="meter-row">
-							<span>Recency</span>
-							<div className="meter">
-								<div
-									className="meter-fill alt"
-									style={{ width: `${recencyPercent ?? 0}%` }}
-								></div>
-							</div>
-							<span className="meter-value">
-								{recencyPercent !== null ? `${recencyPercent}%` : 'N/A'}
-							</span>
-						</div>
+					<div className="intel-metric">
+						<span>Specs</span>
+						<strong>{requirement ? 'Available' : 'Not listed'}</strong>
 					</div>
-					<div className="spotlight-card-footer">
-						<span className="chip-sub">
-							{featuredGame
-								? `Publisher: ${featuredGame.publisher} / Developer: ${featuredGame.developer}`
-								: 'Publisher and developer data unavailable.'}
-						</span>
+					<div className="intel-metric">
+						<span>Popularity</span>
+						<strong>{popularityPercent !== null ? `${popularityPercent}%` : 'N/A'}</strong>
 					</div>
-				</article>
-			</div>
-		</div>
+					<div className="intel-metric">
+						<span>Recency</span>
+						<strong>{recencyPercent !== null ? `${recencyPercent}%` : 'N/A'}</strong>
+					</div>
+				</div>
+
+				<div className="intel-feed">
+					<div className="feed-line">
+						<span className="feed-dot" aria-hidden="true"></span>
+						OS: {requirement?.os ?? 'N/A'}
+					</div>
+					<div className="feed-line">
+						<span className="feed-dot" aria-hidden="true"></span>
+						CPU: {requirement?.processor ?? 'N/A'}
+					</div>
+					<div className="feed-line">
+						<span className="feed-dot" aria-hidden="true"></span>
+						Memory: {requirement?.memory ?? 'N/A'} / GPU: {requirement?.graphics ?? 'N/A'}
+					</div>
+					<div className="feed-line">
+						<span className="feed-dot" aria-hidden="true"></span>
+						Storage: {requirement?.storage ?? 'N/A'}
+					</div>
+				</div>
+			</aside>
+		</section>
 	)
 }
 
-export default FeaturedCard
+export default MainCard

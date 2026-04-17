@@ -1,4 +1,5 @@
 import type { GameSummary } from '../types/game'
+import { useNavigate } from 'react-router-dom'
 import { formatPlatform, getReleaseTier, getReleaseYear } from '../utility/homeUtils'
 
 type GameCardsProps = {
@@ -6,12 +7,29 @@ type GameCardsProps = {
 }
 
 function GameCards({ game }: GameCardsProps) {
+	const navigate = useNavigate()
 	const releaseYear = getReleaseYear(game.release_date)
 	const releaseTier = getReleaseTier(releaseYear)
 	const releaseLabel = releaseYear ? String(releaseYear) : 'TBA'
 
+	const openDetails = () => {
+		navigate(`/game/${game.id}`)
+	}
+
 	return (
-		<article className="game-card" key={game.id}>
+		<article
+			className="game-card"
+			key={game.id}
+			onClick={openDetails}
+			onKeyDown={(event) => {
+				if (event.key === 'Enter' || event.key === ' ') {
+					event.preventDefault()
+					openDetails()
+				}
+			}}
+			role="button"
+			tabIndex={0}
+		>
 			<div className="game-card-top">
 				{game.thumbnail ? (
 					<img src={game.thumbnail} alt={game.title} loading="lazy" />

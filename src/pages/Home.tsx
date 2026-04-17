@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../App.css'
 import GameCardGrid from '../components/GameCardGrid'
 import FeaturedCard from '../components/FeaturedCard'
@@ -38,6 +39,7 @@ const getPageSizeForViewport = () => {
 }
 
 function Home() {
+	const navigate = useNavigate()
   const { data: games = [], isLoading, isError } = useGetGamesQuery()
   const { data: popularityGames = [] } = useGetGamesSortedQuery('popularity')
   const [platformFilter, setPlatformFilter] = useState<PlatformFilter>('all')
@@ -72,6 +74,10 @@ function Home() {
     setGenreFilter(genre)
     setCurrentPage(1)
   }
+
+	const handleOpenGame = (gameId: number) => {
+		navigate(`/game/${gameId}`)
+	}
 
   const popularityRank = useMemo(() => {
     const ranks = new Map<number, number>()
@@ -154,6 +160,7 @@ function Home() {
               featuredGame={featuredGame}
               platformFilter={platformFilter}
               onPlatformFilterChange={handlePlatformFilterChange}
+				onOpenGame={handleOpenGame}
               popularityPercent={popularityPercent}
               recencyPercent={recencyPercent}
             />

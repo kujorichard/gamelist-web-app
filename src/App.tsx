@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
+import SpecificGame from './pages/SpecificGame';
 import './App.css';
 
 function AppShell() {
@@ -17,6 +18,7 @@ function AppShell() {
       <main className={`app-shell ${isHomeRoute ? 'app-shell--home' : ''}`}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/game/:id" element={<SpecificGame />} />
         </Routes>
       </main>
     </>

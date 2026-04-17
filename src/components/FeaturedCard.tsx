@@ -6,6 +6,7 @@ type FeaturedCardProps = {
 	featuredGame: GameSummary | undefined
 	platformFilter: PlatformFilter
 	onPlatformFilterChange: (platform: PlatformFilter) => void
+	onOpenGame: (gameId: number) => void
 	popularityPercent: number | null
 	recencyPercent: number | null
 }
@@ -14,6 +15,7 @@ function FeaturedCard({
 	featuredGame,
 	platformFilter,
 	onPlatformFilterChange,
+	onOpenGame,
 	popularityPercent,
 	recencyPercent,
 }: FeaturedCardProps) {
@@ -69,7 +71,13 @@ function FeaturedCard({
 						<span className="unit-code">
 							{featuredGame ? formatCode(featuredGame.id) : 'GX-0000'}
 						</span>
-						<button className="icon-button" type="button" aria-label="Open game details">
+						<button
+							className="icon-button"
+							type="button"
+							aria-label="Open game details"
+							onClick={() => featuredGame && onOpenGame(featuredGame.id)}
+							disabled={!featuredGame}
+						>
 							<svg viewBox="0 0 24 24" role="presentation">
 								<path
 									d="M7 17h10V7m0 0H9m8 0-9 9"
