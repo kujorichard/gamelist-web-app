@@ -11,7 +11,7 @@ import type {
 export const gameApi = createApi({
     reducerPath: 'gameApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: '/api/',
+        baseUrl: import.meta.env.VITE_API_BASE_URL ?? '/api/',
     }),
     endpoints: (builder) => ({
         getGames: builder.query<GameSummary[], void>({
