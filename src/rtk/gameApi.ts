@@ -11,7 +11,7 @@ import type {
 export const gameApi = createApi({
     reducerPath: 'gameApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://www.freetogame.com/api/',
+        baseUrl: '/api/',
     }),
     endpoints: (builder) => ({
         getGames: builder.query<GameSummary[], void>({
