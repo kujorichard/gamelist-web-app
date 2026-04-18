@@ -1,5 +1,3 @@
-import React from 'react';
-
 const ChartCardSkeleton = () => (
     <article className="chart-card skeleton">
       <div className="card-content">
