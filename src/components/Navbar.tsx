@@ -1,24 +1,33 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { formatTime } from "../utility/homeUtils"
+import { formatTime } from '../utility/homeUtils'
 
 type NavbarProps =
 	| {
 			variant: 'top'
-		}
+	  }
 	| {
 			variant: 'side'
-		}
+	  }
 
 function Navbar(props: NavbarProps) {
 	const navigate = useNavigate()
 	const location = useLocation()
 	const [isSideOpen, setIsSideOpen] = useState(false)
+	const [time, setTime] = useState(new Date())
 	const isHomeRoute = location.pathname === '/'
 	const isPickerRoute = location.pathname.startsWith('/pick-a-game')
 	const isChartsRoute = location.pathname === '/charts'
 
-	const localTime = formatTime(new Date())
+	useEffect(() => {
+		const timer = setInterval(() => {
+			setTime(new Date())
+		}, 1000)
+		return () => clearInterval(timer)
+	}, [])
+
+	const localTime = formatTime(time)
+	const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
 	if (props.variant === 'top') {
 		return (
@@ -70,7 +79,8 @@ function Navbar(props: NavbarProps) {
 				</nav>
 				<div className="topbar-right">
 					<div className="pill">
-						<span className="dot" aria-hidden="true"></span>Global Index
+						<span className="dot" aria-hidden="true"></span>
+						{timezone}
 					</div>
 					<div className="time">{localTime}</div>
 				</div>

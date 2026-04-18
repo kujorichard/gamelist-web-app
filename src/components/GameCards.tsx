@@ -42,7 +42,7 @@ function GameCards({ game }: GameCardsProps) {
 				<span className="corner-tag">{game.genre}</span>
 			</div>
 			<div className="game-card-body">
-				<div className="game-title">{game.title}</div>
+				<div className="game-card-title">{game.title}</div>
 				<div className="game-sub">{game.publisher}</div>
 				<div className="game-meta">
 					<span>{formatPlatform(game.platform)}</span>

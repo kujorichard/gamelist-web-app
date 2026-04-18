@@ -4,6 +4,7 @@ import { useGetGamesSortedQuery } from '../rtk/gameApi'
 import Pagination from '../components/Pagination'
 import '../styles/Charts.css'
 import Navbar from '../components/Navbar'
+import ChartCardSkeleton from '../components/ChartCardSkeleton'
 
 const Charts = () => {
   const navigate = useNavigate()
@@ -14,7 +15,21 @@ const Charts = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const PAGE_SIZE = 15
 
-  if (isLoading) return <p>Loading games...</p>
+  if (isLoading) {
+    return (
+      <>
+        <Navbar variant="top" />
+        <div className="container">
+          <h1 className="title">Newest Games</h1>
+          <div className="charts-list">
+            {Array.from({ length: PAGE_SIZE }).map((_, index) => (
+              <ChartCardSkeleton key={index} />
+            ))}
+          </div>
+        </div>
+      </>
+    )
+  }
   if (error) return <p>Failed to load games</p>
 
   const start = (currentPage - 1) * PAGE_SIZE
