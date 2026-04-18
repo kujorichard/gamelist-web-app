@@ -7,7 +7,6 @@ import { useGetGamesQuery, useGetGamesSortedQuery } from '../rtk/gameApi'
 import type { GameSortBy } from '../types/game'
 import {
 	formatCount,
-	formatTime,
 	getReleaseYear,
 	matchesPlatform,
 	platformLabels,
@@ -163,7 +162,6 @@ function PickAGame() {
 	const pageStart = (safeCurrentPage - 1) * pageSize
 	const pageGames = filteredGames.slice(pageStart, pageStart + pageSize)
 	const showSkeletons = isLoading && games.length === 0
-	const localTime = formatTime(new Date())
 
 	const clearFilters = () => {
 		setPlatformFilter('all')
@@ -177,7 +175,7 @@ function PickAGame() {
 
 	return (
 		<div className="app-shell">
-			<Navbar variant="top" localTime={localTime} />
+			<Navbar variant="top" />
 
 			<div className="app-body">
 				<Navbar variant="side" />
