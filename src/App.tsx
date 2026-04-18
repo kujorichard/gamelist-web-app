@@ -14,6 +14,8 @@ function AppShell() {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, [location.pathname, location.search]);
 
+  const isHomeRoute = location.pathname === "/";
+  
   return (
     <>
       {/* <Header key={location.pathname} /> */}
