@@ -4,7 +4,6 @@ import GameDesc from '../components/GameDesc'
 import MainCard from '../components/MainCard'
 import Navbar from '../components/Navbar'
 import { useGetGameByIdQuery, useGetGamesQuery, useGetGamesSortedQuery } from '../rtk/gameApi'
-import { formatTime } from '../utility/homeUtils'
 
 function SpecificGame() {
 	const { id } = useParams<{ id: string }>()
@@ -25,8 +24,6 @@ function SpecificGame() {
 		})
 		return ranks
 	}, [popularityGames])
-
-	const localTime = formatTime(new Date())
 
 	return (
 		<div className="app-shell">

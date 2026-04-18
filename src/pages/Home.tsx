@@ -8,7 +8,6 @@ import { useGetGamesQuery, useGetGamesSortedQuery } from '../rtk/gameApi'
 import type { GameSortBy } from '../types/game'
 import {
   formatCount,
-  formatTime,
   getNewestRelease,
   getReleaseYear,
   getYearRange,
@@ -145,7 +144,6 @@ function Home() {
   const platformLabel = platformLabels[platformFilter]
   const sortLabel = sortLabels[sortMode]
   const genreLabel = genreFilter === 'all' ? 'All genres' : genreFilter
-  const localTime = formatTime(new Date())
 
   return (
     <div className="app-shell">
