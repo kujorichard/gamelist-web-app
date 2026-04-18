@@ -149,7 +149,7 @@ function Home() {
 
   return (
     <div className="app-shell">
-      <Navbar variant="top" localTime={localTime} />
+      <Navbar variant="top" />
 
       <div className="app-body">
         <Navbar variant="side" />

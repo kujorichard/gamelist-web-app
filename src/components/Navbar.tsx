@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { formatTime } from "../utility/homeUtils"
 
 type NavbarProps =
 	| {
 			variant: 'top'
-			localTime: string
 		}
 	| {
 			variant: 'side'
@@ -17,6 +17,8 @@ function Navbar(props: NavbarProps) {
 	const isHomeRoute = location.pathname === '/'
 	const isPickerRoute = location.pathname.startsWith('/pick-a-game')
 
+	const localTime = formatTime(new Date())
+	
 	if (props.variant === 'top') {
 		return (
 			<header className="topbar">
@@ -61,7 +63,7 @@ function Navbar(props: NavbarProps) {
 					<div className="pill">
 						<span className="dot" aria-hidden="true"></span>Global Index
 					</div>
-					<div className="time">{props.localTime}</div>
+					<div className="time">{localTime}</div>
 				</div>
 			</header>
 		)

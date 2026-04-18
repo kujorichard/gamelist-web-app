@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Home from './pages/Home';
 import PickAGame from './pages/PickAGame';
 import SpecificGame from './pages/SpecificGame';
+import Charts from './pages/Charts';
 import './App.css';
+
 
 function AppShell() {
   const location = useLocation();
@@ -13,11 +15,17 @@ function AppShell() {
   }, [location.pathname, location.search]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/pick-a-game" element={<PickAGame />} />
-      <Route path="/game/:id" element={<SpecificGame />} />
-    </Routes>
+    <>
+      {/* <Header key={location.pathname} /> */}
+      <main className={`app-shell ${isHomeRoute ? 'app-shell--home' : ''}`}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/pick-a-game" element={<PickAGame />} />
+          <Route path="/game/:id" element={<SpecificGame />} />
+          <Route path="/charts" element={<Charts />} />
+        </Routes>
+      </main>
+    </>
   );
 }
 
