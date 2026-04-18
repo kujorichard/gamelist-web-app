@@ -1,3 +1,5 @@
+import { useLocation, useNavigate } from 'react-router-dom'
+
 type NavbarProps =
 	| {
 			variant: 'top'
@@ -8,6 +10,11 @@ type NavbarProps =
 		}
 
 function Navbar(props: NavbarProps) {
+	const navigate = useNavigate()
+	const location = useLocation()
+	const isHomeRoute = location.pathname === '/'
+	const isPickerRoute = location.pathname.startsWith('/pick-a-game')
+
 	if (props.variant === 'top') {
 		return (
 			<header className="topbar">
@@ -28,10 +35,20 @@ function Navbar(props: NavbarProps) {
 					</div>
 				</div>
 				<nav className="topnav" aria-label="Primary">
-					<button className="topnav-item active" type="button">
+					<button
+						className={`topnav-item ${isHomeRoute ? 'active' : ''}`}
+						type="button"
+						onClick={() => navigate('/')}
+						aria-current={isHomeRoute ? 'page' : undefined}
+					>
 						HOME
 					</button>
-					<button className="topnav-item" type="button">
+					<button
+						className={`topnav-item ${isPickerRoute ? 'active' : ''}`}
+						type="button"
+						onClick={() => navigate('/pick-a-game')}
+						aria-current={isPickerRoute ? 'page' : undefined}
+					>
 						GAME PICKER
 					</button>
 					<button className="topnav-item" type="button">

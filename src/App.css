@@ -795,6 +795,76 @@
   justify-content: center;
 }
 
+.picker-control-panel {
+  gap: 18px;
+}
+
+.picker-header {
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+}
+
+.picker-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  color: var(--muted);
+}
+
+.picker-controls {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.picker-control {
+  display: grid;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--panel-2);
+}
+
+.picker-control--wide {
+  grid-column: span 2;
+}
+
+.picker-control span {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.picker-control input,
+.picker-control select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  height: 36px;
+  padding: 0 10px;
+  background: var(--panel);
+  color: var(--text-strong);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.picker-control input::placeholder {
+  color: var(--muted);
+}
+
+.picker-control input:focus-visible,
+.picker-control select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .selected-preview-panel {
   min-height: 420px;
 }
@@ -1001,6 +1071,14 @@
   .game-desc-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .picker-controls {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .picker-control--wide {
+    grid-column: span 3;
+  }
 }
 
 @media (max-width: 900px) {
@@ -1042,6 +1120,19 @@
   .selected-preview-content h3 {
     font-size: 14px;
   }
+
+  .picker-header {
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+
+  .picker-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .picker-control--wide {
+    grid-column: span 2;
+  }
 }
 
 @media (max-width: 720px) {
@@ -1055,6 +1146,20 @@
 
   .game-desc-grid {
     grid-template-columns: 1fr;
+  }
+
+  .picker-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .picker-control--wide {
+    grid-column: span 1;
+  }
+
+  .picker-summary {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
 }
 
