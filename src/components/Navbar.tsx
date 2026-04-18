@@ -16,9 +16,10 @@ function Navbar(props: NavbarProps) {
 	const [isSideOpen, setIsSideOpen] = useState(false)
 	const isHomeRoute = location.pathname === '/'
 	const isPickerRoute = location.pathname.startsWith('/pick-a-game')
+	const isChartsRoute = location.pathname === '/charts'
 
 	const localTime = formatTime(new Date())
-	
+
 	if (props.variant === 'top') {
 		return (
 			<header className="topbar">
@@ -46,6 +47,14 @@ function Navbar(props: NavbarProps) {
 						aria-current={isHomeRoute ? 'page' : undefined}
 					>
 						HOME
+					</button>
+					<button
+						className={`topnav-item ${isChartsRoute ? 'active' : ''}`}
+						type="button"
+						onClick={() => navigate('/charts')}
+						aria-current={isChartsRoute ? 'page' : undefined}
+						>
+						CHARTS
 					</button>
 					<button
 						className={`topnav-item ${isPickerRoute ? 'active' : ''}`}
