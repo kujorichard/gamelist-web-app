@@ -127,6 +127,42 @@
   gap: 18px;
 }
 
+.rail-shell {
+  width: 70px;
+  position: sticky;
+  top: 18px;
+  align-self: start;
+  height: max-content;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.rail-toggle {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+  color: var(--text-strong);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--panel-shadow);
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.rail-toggle svg {
+  width: 22px;
+  height: 22px;
+}
+
+.rail-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .rail {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -137,6 +173,18 @@
   align-items: center;
   gap: 10px;
   box-shadow: var(--panel-shadow);
+  opacity: 0;
+  transform: translateX(-10px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.rail-shell:hover .rail,
+.rail-shell:focus-within .rail,
+.rail-shell.open .rail {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
 }
 
 .rail-btn {
@@ -1096,9 +1144,24 @@
     grid-template-columns: 1fr;
   }
 
+  .rail-shell {
+    width: 100%;
+    position: static;
+    align-items: stretch;
+  }
+
+  .rail-toggle {
+    width: 100%;
+    max-width: 180px;
+    align-self: center;
+  }
+
   .rail {
     flex-direction: row;
     justify-content: center;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
   }
 
   .spotlight-card {
