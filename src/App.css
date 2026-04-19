@@ -1267,8 +1267,15 @@
   }
 
   .rail {
+    display: none;
     flex-direction: row;
     justify-content: center;
+    width: 100%;
+  }
+
+  .rail-shell.open .rail,
+  .rail-shell:focus-within .rail {
+    display: flex;
     opacity: 1;
     transform: none;
     pointer-events: auto;

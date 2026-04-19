@@ -15,6 +15,7 @@ function Navbar(props: NavbarProps) {
 	const location = useLocation()
 	const [isSideOpen, setIsSideOpen] = useState(false)
 	const [time, setTime] = useState(new Date())
+	const MOBILE_BREAKPOINT = 900
 	const isHomeRoute = location.pathname === '/'
 	const isPickerRoute = location.pathname.startsWith('/pick-a-game')
 	const isChartsRoute = location.pathname === '/charts'
@@ -29,6 +30,12 @@ function Navbar(props: NavbarProps) {
 
 	const localTime = formatTime(time)
 	const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+
+	const handleRailAction = () => {
+		if (typeof window !== 'undefined' && window.innerWidth <= MOBILE_BREAKPOINT) {
+			setIsSideOpen(false)
+		}
+	}
 
 	if (props.variant === 'top') {
 		return (
@@ -115,7 +122,12 @@ function Navbar(props: NavbarProps) {
 			</button>
 
 			<aside id="side-rail" className="rail" aria-label="Section navigation">
-				<button className="rail-btn active" type="button" aria-label="Overview">
+				<button
+					className="rail-btn active"
+					type="button"
+					aria-label="Overview"
+					onClick={handleRailAction}
+				>
 					<svg viewBox="0 0 24 24" role="presentation">
 						<path
 							d="M4 4h7v7H4V4zm9 0h7v4h-7V4zm0 6h7v10h-7V10zM4 13h7v7H4v-7z"
@@ -125,7 +137,7 @@ function Navbar(props: NavbarProps) {
 						/>
 					</svg>
 				</button>
-				<button className="rail-btn" type="button" aria-label="Intel">
+				<button className="rail-btn" type="button" aria-label="Intel" onClick={handleRailAction}>
 					<svg viewBox="0 0 24 24" role="presentation">
 						<path
 							d="M12 4v4m0 8v4M4 12h4m8 0h4M7.5 7.5l3 3m3 3l3 3m0-9l-3 3m-3 3l-3 3"
@@ -135,7 +147,7 @@ function Navbar(props: NavbarProps) {
 						/>
 					</svg>
 				</button>
-				<button className="rail-btn" type="button" aria-label="Operations">
+				<button className="rail-btn" type="button" aria-label="Operations" onClick={handleRailAction}>
 					<svg viewBox="0 0 24 24" role="presentation">
 						<path
 							d="M4 7h16M4 12h10M4 17h16"
@@ -145,7 +157,7 @@ function Navbar(props: NavbarProps) {
 						/>
 					</svg>
 				</button>
-				<button className="rail-btn" type="button" aria-label="Logs">
+				<button className="rail-btn" type="button" aria-label="Logs" onClick={handleRailAction}>
 					<svg viewBox="0 0 24 24" role="presentation">
 						<path
 							d="M5 4h10l4 4v12H5V4zm10 0v4h4"
@@ -155,7 +167,7 @@ function Navbar(props: NavbarProps) {
 						/>
 					</svg>
 				</button>
-				<button className="rail-btn" type="button" aria-label="Users">
+				<button className="rail-btn" type="button" aria-label="Users" onClick={handleRailAction}>
 					<svg viewBox="0 0 24 24" role="presentation">
 						<path
 							d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm-7 8a7 7 0 0 1 14 0"
@@ -166,7 +178,7 @@ function Navbar(props: NavbarProps) {
 					</svg>
 				</button>
 				<div className="rail-divider" aria-hidden="true"></div>
-				<button className="rail-btn" type="button" aria-label="Settings">
+				<button className="rail-btn" type="button" aria-label="Settings" onClick={handleRailAction}>
 					<svg viewBox="0 0 24 24" role="presentation">
 						<path
 							d="M10.5 4h3l1 2 2.2.8-.2 2.2 1.6 2-1.6 2 .2 2.2-2.2.8-1 2h-3l-1-2-2.2-.8.2-2.2-1.6-2 1.6-2-.2-2.2 2.2-.8 1-2zm1.5 6.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"

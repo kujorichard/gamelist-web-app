@@ -1,62 +1,7 @@
 /* Charts.css */
 
-.container {
-  padding: 16px;
-}
-
-.title {
-  font-size: 24px;
-  margin-bottom: 16px;
-}
-
-.list {
-  list-style: none;
-  padding: 0;
-}
-
-.list-item {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 12px;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 8px;
-}
-
-.rank {
-  font-weight: bold;
-  width: 30px;
-}
-
-.thumbnail {
-  width: 60px;
-  height: 80px;
-  object-fit: cover;
-  flex: block;
-}
-
-.game-info p {
-  margin: 0;
-}
-
-.release-date {
-  font-size: 12px;
-  color: gray;
-}
-
-.pagination {
-  margin-top: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-}
-
-.pagination button {
-  padding: 6px 12px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  border-radius: 20px;
+.charts-header {
+  grid-template-columns: 1fr;
 }
 
 .charts-list {
