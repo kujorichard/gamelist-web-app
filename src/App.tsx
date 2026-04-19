@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import PickAGame from './pages/PickAGame';
 import SpecificGame from './pages/SpecificGame';
 import Charts from './pages/Charts';
+import About from './pages/About';
 import './App.css';
 
 
@@ -25,6 +26,7 @@ function AppShell() {
           <Route path="/pick-a-game" element={<PickAGame />} />
           <Route path="/game/:id" element={<SpecificGame />} />
           <Route path="/charts" element={<Charts />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </main>
     </>

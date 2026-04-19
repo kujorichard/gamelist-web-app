@@ -18,6 +18,7 @@ function Navbar(props: NavbarProps) {
 	const isHomeRoute = location.pathname === '/'
 	const isPickerRoute = location.pathname.startsWith('/pick-a-game')
 	const isChartsRoute = location.pathname === '/charts'
+	const isAboutRoute = location.pathname === '/about'
 
 	useEffect(() => {
 		const timer = setInterval(() => {
@@ -73,7 +74,12 @@ function Navbar(props: NavbarProps) {
 					>
 						GAME PICKER
 					</button>
-					<button className="topnav-item" type="button">
+					<button
+						className={`topnav-item ${isAboutRoute ? 'active' : ''}`}
+						type="button"
+						onClick={() => navigate('/about')}
+						aria-current={isAboutRoute ? 'page' : undefined}
+					>
 						ABOUT
 					</button>
 				</nav>
