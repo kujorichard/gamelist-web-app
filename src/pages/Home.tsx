@@ -169,9 +169,6 @@ function Home() {
                   <div className="panel-eyebrow">Telemetry</div>
                   <div className="panel-title">Live Network</div>
                 </div>
-                <button className="ghost-button" type="button">
-                  Scan
-                </button>
               </div>
               <div className="intel-metrics">
                 <div className="intel-metric">

@@ -235,6 +235,31 @@
   gap: 18px;
 }
 
+html.density-compact .app-shell {
+  padding: 14px 18px 24px;
+  gap: 14px;
+}
+
+html.density-compact .app-body,
+html.density-compact .main,
+html.density-compact .board {
+  gap: 14px;
+}
+
+html.density-compact .list-panel,
+html.density-compact .intel-panel {
+  padding: 14px;
+  gap: 12px;
+}
+
+html.density-compact .spotlight-canvas {
+  padding: 18px;
+}
+
+html.density-compact .game-grid {
+  gap: 12px;
+}
+
 .spotlight-panel {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -302,11 +327,16 @@
 
 .spotlight-canvas.cover {
   background-image:
-    linear-gradient(135deg, rgba(8, 8, 8, 0.94), rgba(8, 8, 8, 0.66)),
     radial-gradient(600px 400px at 65% 20%, rgba(255, 255, 255, 0.14), transparent 60%),
     var(--cover);
   background-size: cover;
   background-position: center;
+}
+
+html.theme-light .spotlight-canvas.cover {
+  background-image:
+    radial-gradient(600px 400px at 65% 20%, rgba(0, 0, 0, 0.12), transparent 60%),
+    var(--cover);
 }
 
 .spotlight-grid {
@@ -510,18 +540,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.ghost-button {
-  border: 1px solid var(--line);
-  background: transparent;
-  color: var(--text-strong);
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-family: var(--font-mono);
 }
 
 .intel-metrics {
@@ -783,6 +801,32 @@
   color: var(--muted);
 }
 
+html.theme-light .release-pill {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(0, 0, 0, 0.25);
+  color: var(--muted);
+}
+
+html.theme-light .release-pill.recent {
+  border-color: rgba(0, 0, 0, 0.6);
+  color: var(--text-strong);
+}
+
+html.theme-light .release-pill.established {
+  border-color: rgba(0, 0, 0, 0.45);
+  color: var(--text);
+}
+
+html.theme-light .release-pill.legacy {
+  border-color: rgba(0, 0, 0, 0.35);
+  color: var(--text-strong);
+}
+
+html.theme-light .release-pill.unknown {
+  border-color: rgba(0, 0, 0, 0.3);
+  color: var(--muted);
+}
+
 .corner-tag {
   position: absolute;
   right: 10px;
@@ -795,6 +839,12 @@
   border: 1px solid var(--line);
   color: var(--text-strong);
   background: rgba(10, 13, 16, 0.6);
+}
+
+html.theme-light .corner-tag {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: var(--text-strong);
 }
 
 .game-card-body {
@@ -1359,4 +1409,11 @@
   .skeleton::after {
     animation: none;
   }
+}
+
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+  animation: none !important;
+  transition: none !important;
 }

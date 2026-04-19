@@ -163,16 +163,6 @@ function PickAGame() {
 	const pageGames = filteredGames.slice(pageStart, pageStart + pageSize)
 	const showSkeletons = isLoading && games.length === 0
 
-	const clearFilters = () => {
-		setPlatformFilter('all')
-		setGenreFilter('all')
-		setPublisherFilter('all')
-		setFromYear('all')
-		setToYear('all')
-		setSortMode('popularity')
-		setSearchTerm('')
-	}
-
 	return (
 		<div className="app-shell">
 			<Navbar variant="top" />
@@ -192,9 +182,6 @@ function PickAGame() {
 									{formatCount(filteredGames.length)} matches / Platform:{' '}
 									{platformLabels[platformFilter]} / Sort: {sortLabels[sortMode]}
 								</span>
-								<button className="ghost-button" type="button" onClick={clearFilters}>
-									Reset
-								</button>
 							</div>
 						</div>
 
