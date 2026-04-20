@@ -26,18 +26,22 @@ function Navbar(props: NavbarProps) {
 	const [isReducedMotion, setIsReducedMotion] = useState(false)
 	const [hasThemePreference, setHasThemePreference] = useState(false)
 	const [hasLoadedPrefs, setHasLoadedPrefs] = useState(false)
-	const MOBILE_BREAKPOINT = 900
+	const MOBILE_BREAKPOINT = 1024
 	const isHomeRoute = location.pathname === '/'
 	const isPickerRoute = location.pathname.startsWith('/pick-a-game')
 	const isChartsRoute = location.pathname === '/charts'
 	const isAboutRoute = location.pathname === '/about'
 
 	useEffect(() => {
+		if (props.variant !== 'top') {
+			return
+		}
+
 		const timer = setInterval(() => {
 			setTime(new Date())
-		}, 1000)
+		}, 30000)
 		return () => clearInterval(timer)
-	}, [])
+	}, [props.variant])
 
 	useEffect(() => {
 		if (typeof window === 'undefined') {

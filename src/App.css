@@ -720,7 +720,7 @@ html.theme-light .spotlight-canvas.cover {
   display: flex;
   flex-direction: column;
   min-height: 220px;
-  width: 350px;
+  width: 100%;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
   cursor: pointer;
@@ -1289,6 +1289,50 @@ html.theme-light .corner-tag {
   }
 }
 
+@media (max-width: 1024px) {
+  .app-body {
+    grid-template-columns: 1fr;
+  }
+
+  .rail-shell {
+    width: auto;
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    left: auto;
+    align-items: flex-start;
+    z-index: 40;
+  }
+
+  .rail-toggle {
+    width: 46px;
+    height: 46px;
+    max-width: none;
+    align-self: flex-start;
+  }
+
+  .rail {
+    position: absolute;
+    top: 54px;
+    right: 0;
+    left: auto;
+    width: max-content;
+    flex-direction: column;
+    justify-content: flex-start;
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+  }
+
+  .rail-shell.open .rail,
+  .rail-shell:focus-within .rail {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
 @media (max-width: 900px) {
   .topbar {
     grid-template-columns: 1fr;
@@ -1298,37 +1342,11 @@ html.theme-light .corner-tag {
   .topnav {
     flex-wrap: wrap;
     justify-content: flex-start;
+    row-gap: 8px;
   }
 
   .app-body {
     grid-template-columns: 1fr;
-  }
-
-  .rail-shell {
-    width: 100%;
-    position: static;
-    align-items: stretch;
-  }
-
-  .rail-toggle {
-    width: 100%;
-    max-width: 180px;
-    align-self: center;
-  }
-
-  .rail {
-    display: none;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .rail-shell.open .rail,
-  .rail-shell:focus-within .rail {
-    display: flex;
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
   }
 
   .spotlight-card {
@@ -1374,6 +1392,86 @@ html.theme-light .corner-tag {
 }
 
 @media (max-width: 720px) {
+  .app-shell {
+    padding: 12px 12px 20px;
+    gap: 12px;
+  }
+
+  .topbar {
+    gap: 12px;
+    padding: 10px 12px;
+  }
+
+  .topnav-item {
+    font-size: 12px;
+    letter-spacing: 1.4px;
+    padding: 6px 10px;
+  }
+
+  .topbar-right {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+
+  .spotlight-header {
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .spotlight-tabs {
+    flex-wrap: wrap;
+  }
+
+  .spotlight-tab {
+    font-size: 12px;
+    letter-spacing: 1.4px;
+    padding: 5px 10px;
+  }
+
+  .panel-title {
+    font-size: 17px;
+  }
+
+  .spotlight-canvas {
+    padding: 14px;
+  }
+
+  .spotlight-card {
+    padding: 12px;
+  }
+
+  .spotlight-card-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .meter-row {
+    grid-template-columns: 70px 1fr 34px;
+    gap: 6px;
+    font-size: 11px;
+  }
+
+  .list-panel,
+  .intel-panel {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .pagination {
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .pagination-btn {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 8px;
+    font-size: 11px;
+    letter-spacing: 0.7px;
+  }
+
   .game-grid {
     grid-template-columns: 1fr;
   }
@@ -1402,6 +1500,11 @@ html.theme-light .corner-tag {
 
   .about-kpis {
     grid-template-columns: 1fr;
+  }
+
+  .rail-shell {
+    top: 12px;
+    right: 12px;
   }
 }
 
