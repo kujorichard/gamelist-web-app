@@ -54,7 +54,7 @@ html.theme-light body {
 html {
   scrollbar-gutter: stable both-edges;
   width: 100%;
-  overflow-x: clip;
+  overflow-x: visible;
 }
 
 * {
@@ -85,7 +85,7 @@ body {
   min-height: 100vh;
   position: relative;
   width: 100%;
-  overflow-x: clip;
+  overflow-x: visible;
 }
 
 @media (max-width: 1024px), (hover: none) and (pointer: coarse) {

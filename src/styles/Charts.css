@@ -1,7 +1,157 @@
 /* Charts.css */
 
 .charts-header {
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr auto auto;
+}
+
+.charts-graph-panel {
+  gap: 14px;
+}
+
+.chart-mode-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.chart-graph {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chart-line-wrap {
+  --chart-line-primary: #ffffff;
+  --chart-line-secondary: #c9c9c9;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel-2);
+  padding: 12px;
+}
+
+html.theme-light .chart-line-wrap {
+  --chart-line-primary: #0a0a0a;
+  --chart-line-secondary: #595959;
+}
+
+.chart-line-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chart-line-grid {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.chart-line-y-label,
+.chart-line-x-label {
+  fill: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.chart-line-x-label {
+  text-anchor: middle;
+}
+
+.chart-line-stroke-primary,
+.chart-line-stroke-secondary {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+}
+
+.chart-line-stroke-primary {
+  stroke: var(--chart-line-primary) !important;
+}
+
+.chart-line-stroke-secondary {
+  stroke: var(--chart-line-secondary) !important;
+  stroke-dasharray: 10 8;
+}
+
+.chart-line-point-primary,
+.chart-line-point-secondary {
+  fill: var(--panel);
+}
+
+.chart-line-point-primary {
+  stroke: var(--chart-line-primary) !important;
+  stroke-width: 2;
+}
+
+.chart-line-point-secondary {
+  stroke: var(--chart-line-secondary) !important;
+  stroke-width: 2;
+}
+
+.chart-line-x-label-clickable {
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+  transition: fill 0.2s ease;
+}
+
+.chart-line-x-label-clickable:hover {
+  fill: var(--text-strong);
+}
+
+.chart-line-legend {
+  margin-top: 8px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-swatch {
+  width: 14px;
+  height: 3px;
+  border-radius: 999px;
+}
+
+.legend-swatch-primary {
+  background: var(--chart-line-primary);
+}
+
+.legend-swatch-secondary {
+  background: var(--chart-line-secondary);
+}
+
+.chart-line-caption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.charts-graph-loading {
+  border: 1px dashed var(--line-strong);
+  border-radius: 12px;
+  padding: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 12px;
+  color: var(--muted);
 }
 
 .charts-list {
@@ -15,20 +165,26 @@
   border-radius: 14px;
   background: var(--panel);
   position: relative;
-  padding: 12px;
+  padding: 14px;
   cursor: pointer;
 }
 
-.chart-card:hover {
-  background: rgba(0,0,0,0.05);
+.chart-card:hover,
+.chart-card.is-jumped {
+  background: rgba(255, 255, 255, 0.08);
   transform: translateX(2px);
   transition: 0.2s ease;
+}
+
+html.theme-light .chart-card:hover,
+html.theme-light .chart-card.is-jumped {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .card-content {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
 }
 
 /* LEFT IMAGE */
@@ -48,9 +204,67 @@
 
 /* RIGHT TEXT BLOCK */
 .card-right {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  row-gap: 8px;
+  align-content: center;
+  min-width: 0;
+}
+
+.chart-card .header3 {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.14;
+  letter-spacing: 0.4px;
+  color: var(--text-strong);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chart-card .card-publisher {
+  margin: 0;
+  font-size: 15px;
+  letter-spacing: 0.4px;
+  color: var(--muted);
+  line-height: 1.25;
+}
+
+.chart-card .game-meta-row {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 0;
+  padding-bottom: 2px;
+  scrollbar-width: thin;
+}
+
+.chart-card .meta-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--text-strong);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.chart-card .meta-pill--score {
+  border-color: var(--line-strong);
+}
+
+.chart-card .meta-pill--platform {
+  min-width: 96px;
+  justify-content: center;
 }
 
 /* RANK */
@@ -141,3 +355,24 @@
   .chart-card.skeleton .game-meta {
       margin-top: auto;
   }
+
+@media (max-width: 1200px) {
+  .charts-header {
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+
+  .chart-mode-summary {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 720px) {
+  .chart-line-wrap {
+    padding: 8px;
+  }
+
+  .chart-card .header3 {
+    font-size: 19px;
+  }
+}
