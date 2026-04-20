@@ -1,6 +1,6 @@
 # G-Ex: Video Game Explorer App
 
-A modern React application for exploring and discovering video games using The Game DB API. Built with React 19, Redux Toolkit, React Router, TypeScript, and Bootstrap, it provides category and platform browsing, game search, detailed game views, and wishlist management tools.
+A modern React application for exploring and discovering video games using FreeToGame API. Built with React 19, Redux Toolkit, React Router, TypeScript, and Bootstrap, it provides category and platform browsing, game search, detailed game views, and wishlist management tools.
 
 ## Developers
  - Aguilar, Mark Lorenz (```mark-aguilar2304```)
