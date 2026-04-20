@@ -453,7 +453,7 @@ const Charts = () => {
                       </div>
 
                       <div className="card-right">
-                        <h3 className="header3">{game.title}</h3>
+                        <h3>{game.title}</h3>
                         <p className="card-publisher">{game.publisher}</p>
 
                         <div className="game-meta-row">

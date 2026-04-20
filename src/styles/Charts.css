@@ -213,6 +213,7 @@ html.theme-light .chart-card.is-jumped {
 
 .chart-card .header3 {
   margin: 0;
+  font-family: var(--font-display);
   font-size: 22px;
   line-height: 1.14;
   letter-spacing: 0.4px;
